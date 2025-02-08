@@ -1,0 +1,30 @@
+﻿version: '3.8'
+
+services:
+  api:
+    # Строим контейнер для API
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    ports:
+      - "8080:44372" # Маппинг портов: внешний (8080) -> внутренний (44372)
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+    networks:
+      - app-network
+
+  spa:
+    # Строим контейнер для SPA
+    build:
+      context: ./spa
+      dockerfile: Dockerfile
+    ports:
+      - "5000:4200" # Маппинг портов: внешний (5000) -> внутренний (4200)
+    depends_on:
+      - api
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
