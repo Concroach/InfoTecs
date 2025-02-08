@@ -1,0 +1,60 @@
+﻿<div>
+  <h2>Devices</h2>
+  <button (click)="loadAllDevices()">Load All Devices</button>
+  <button (click)="downloadBackup()">Download Backup</button>
+
+  <div *ngIf="devices.length > 0; else noDevices">
+    <table border="1" style="width: 100%; margin-top: 20px;">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let device of devices">
+        <td>{{ device.id }}</td>
+        <td>{{ device.name }}</td>
+        <td>{{ device.startTime }}</td>
+        <td>{{ device.endTime }}</td>
+        <td>
+          <button (click)="selectDevice(device.id)">Get Details</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ng-template #noDevices>
+    <p>No devices available. Click "Load All Devices" to fetch data.</p>
+  </ng-template>
+
+  <div *ngIf="selectedDeviceId && selectedDeviceData.length > 0; else noSelectedDevice" style="margin-top: 20px;">
+    <h3>Selected Device: {{ selectedDeviceId }}</h3>
+    <table border="1" style="width: 100%;">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let activity of selectedDeviceData">
+        <td>{{ activity.id }}</td>
+        <td>{{ activity.name }}</td>
+        <td>{{ activity.startTime }}</td>
+        <td>{{ activity.endTime }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ng-template #noSelectedDevice>
+    <p>Select a device to view its details.</p>
+  </ng-template>
+</div>
