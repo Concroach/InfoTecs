@@ -2,12 +2,16 @@
 FROM node:18-alpine AS build
 WORKDIR /app
 
-# Устанавливаем зависимости
+# Копируем package.json и package-lock.json
 COPY package*.json ./
+
+# Устанавливаем зависимости
 RUN npm install
 
-# Копируем остальной код и выполняем сборку
+# Копируем остальной код
 COPY . .
+
+# Выполняем сборку
 RUN npm run build --prod
 
 # Фаза выполнения
