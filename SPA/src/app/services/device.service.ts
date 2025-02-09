@@ -2,8 +2,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { DeviceActivity } from './device-activity.model';
-// @ts-ignore
-import { environment } from '../environments/environment'; // Добавьте эту строку
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +9,7 @@ import { environment } from '../environments/environment'; // Добавьте �
 export class DeviceService {
   constructor(private http: HttpClient) {}
 
-  private apiUrl = environment.apiUrl + '/device'; // Используйте environment.apiUrl
+  private apiUrl = 'http://localhost:8080/api/device'; // Используйте environment.apiUrl
 
   getAllActivities(): Observable<DeviceActivity[]> {
     return this.http.get<DeviceActivity[]>(`${this.apiUrl}/all`);
