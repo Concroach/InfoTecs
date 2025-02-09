@@ -1,22 +1,30 @@
-﻿# Фаза сборки
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build-env
-WORKDIR /app
-  
-  # Копируем csproj-файл и восстанавливаем зависимости
-COPY *.csproj ./
-RUN dotnet restore
-  
-  # Копируем остальной код и выполняем сборку
-COPY . .
-RUN dotnet publish -c Release -o out
-  
-  # Фаза выполнения
-FROM mcr.microsoft.com/dotnet/aspnet:8.0
-WORKDIR /app
-COPY --from=build-env /app/out .
-  
-  # Задаем порт, на котором будет работать API
-EXPOSE 44372
-  
-  # Запускаем приложение
-ENTRYPOINT ["dotnet", "YourApiProjectName.dll"]
+﻿version: '3.8'
+
+services:
+  api:
+    # Строим контейнер для API
+    build:
+      context: ./API
+      dockerfile: Dockerfile
+    ports:
+      - "8080:44372" # Маппинг портов: внешний (8080) -> внутренний (44372)
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+    networks:
+      - app-network
+
+  spa:
+    # Строим контейнер для SPA
+    build:
+      context: ./SPA
+      dockerfile: Dockerfile
+    ports:
+      - "5000:4200" # Маппинг портов: внешний (5000) -> внутренний (4200)
+    depends_on:
+      - api
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
