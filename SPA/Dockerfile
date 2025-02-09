@@ -18,6 +18,9 @@ RUN npm run build --prod
 FROM node:18-alpine
 WORKDIR /app/dist/SPA
 
+# Копируем собранные файлы из этапа сборки
+COPY --from=build /app/dist/SPA .
+
 # Устанавливаем http-server
 RUN npm install -g http-server
 
