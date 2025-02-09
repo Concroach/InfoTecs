@@ -15,14 +15,14 @@ COPY . .
 RUN npm run build --prod
 
 # Фаза выполнения
-FROM nginx:alpine
-WORKDIR /usr/share/nginx/html
+FROM node:18-alpine
+WORKDIR /app/dist/SPA
 
-# Копируем собранные файлы в директорию Nginx
-COPY --from=build /app/dist/SPA .
-
-# Копируем конфигурацию Nginx
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Устанавливаем http-server
+RUN npm install -g http-server
 
 # Открываем порт для доступа к SPA
 EXPOSE 4200
+
+# Запускаем http-server
+CMD ["http-server", ".", "-p", "4200"]
