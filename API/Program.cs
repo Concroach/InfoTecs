@@ -21,7 +21,7 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Monitoring Service API", Version = "v1" });
 });
-
+builder.WebHost.UseUrls("http://*:44372", "https://*:44372");
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
