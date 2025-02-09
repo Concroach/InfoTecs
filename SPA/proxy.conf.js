@@ -4,6 +4,7 @@ module.exports = {
     target: 'http://api:44372', // Адрес backend'а внутри Docker-сети
     secure: false,
     logLevel: 'debug',
-    changeOrigin: true
+    changeOrigin: true,
+    pathRewrite: { '^/api': '' } // Убираем префикс /api
   }
 };
