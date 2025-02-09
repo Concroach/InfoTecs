@@ -22,8 +22,19 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Monitoring Service API", Version = "v1" });
 });
 builder.WebHost.UseUrls("http://*:44372");
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin", builder =>
+    {
+        builder.WithOrigins("http://localhost:5000") // Адрес frontend'а
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+
 var app = builder.Build();
 
+app.UseCors("AllowSpecificOrigin");
 if (app.Environment.IsDevelopment())
 {
     if (app.Environment.IsDevelopment())
