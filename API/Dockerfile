@@ -19,4 +19,4 @@ COPY --from=build-env /app/out .
 EXPOSE 44372
 
 # Запускаем приложение
-ENTRYPOINT ["dotnet", "YourApiProjectName.dll"]
+ENTRYPOINT ["dotnet", "API.dll"]
