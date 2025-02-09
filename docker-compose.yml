@@ -2,7 +2,6 @@
 
 services:
   api:
-    # Строим контейнер для API
     build:
       context: ./API
       dockerfile: Dockerfile
@@ -14,7 +13,6 @@ services:
       - app-network
 
   spa:
-    # Строим контейнер для SPA
     build:
       context: ./SPA
       dockerfile: Dockerfile

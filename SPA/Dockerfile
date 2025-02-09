@@ -25,5 +25,4 @@ RUN npm install -g http-server
 EXPOSE 4200
 
 # Запускаем http-server
-# Запускаем http-server с указанием index.html как начального файла
-CMD ["http-server", ".", "-p", "4200", "-a", "0.0.0.0"]
+CMD ["http-server", ".", "-p", "4200", "-a", "0.0.0.0", "-c-1", "-d", "false"]
