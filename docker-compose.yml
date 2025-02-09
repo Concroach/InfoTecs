@@ -4,7 +4,7 @@ services:
   api:
     # Строим контейнер для API
     build:
-      context: ./api
+      context: ./API
       dockerfile: Dockerfile
     ports:
       - "8080:44372" # Маппинг портов: внешний (8080) -> внутренний (44372)
@@ -16,7 +16,7 @@ services:
   spa:
     # Строим контейнер для SPA
     build:
-      context: ./spa
+      context: ./SPA
       dockerfile: Dockerfile
     ports:
       - "5000:4200" # Маппинг портов: внешний (5000) -> внутренний (4200)
