@@ -19,21 +19,17 @@ export class DeviceListComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    // Загрузка начальных данных
     this.loadAllDevices();
 
-    // Инициализация SignalR
     this.signalRService.startConnection();
 
-    // Подписываемся на обновления от SignalR
     this.signalRService['notifyActivityUpdate'] = (activity: DeviceActivity) => {
-      this.devices.push(activity); // Добавляем новую активность в список
+      this.devices.push(activity);
       console.log('Activity added dynamically:', activity);
     };
   }
 
   ngOnDestroy(): void {
-    // Закрываем соединение при уничтожении компонента
     this.signalRService.stopConnection();
   }
 
@@ -48,7 +44,6 @@ export class DeviceListComponent implements OnInit, OnDestroy {
     );
   }
 
-  // Метод для загрузки резервной копии
   downloadBackup(): void {
     this.deviceService.downloadBackup().subscribe(
       (blob) => {
@@ -67,7 +62,6 @@ export class DeviceListComponent implements OnInit, OnDestroy {
     );
   }
 
-  // Метод для выбора устройства
   selectDevice(deviceId: string): void {
     this.selectedDeviceId = deviceId;
 
