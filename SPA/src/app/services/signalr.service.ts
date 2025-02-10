@@ -12,7 +12,7 @@ export class SignalRService {
   // Инициализация соединения с SignalR
   startConnection(): void {
     this.hubConnection = new signalR.HubConnectionBuilder()
-      .withUrl('http://api:8080/api/devicehub') // Адрес SignalR Hub внутри Docker-сети
+      .withUrl('http://api:44372/api/devicehub') // Адрес SignalR Hub внутри Docker-сети
       .build();
 
     this.hubConnection

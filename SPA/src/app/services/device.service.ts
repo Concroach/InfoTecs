@@ -7,7 +7,7 @@ import { DeviceActivity } from './device-activity.model';
   providedIn: 'root'
 })
 export class DeviceService {
-  private apiUrl = 'http://localhost:8080/api/device';
+  private apiUrl = 'http://localhost:44372/api/device';
   constructor(private http: HttpClient) {}
 
   getAllActivities(): Observable<DeviceActivity[]> {

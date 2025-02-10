@@ -1,35 +1,68 @@
-﻿<h1>Device Activities</h1>
+﻿<div>
+  <h2>Devices</h2>
 
-<!-- Кнопка для загрузки резервной копии -->
-<button (click)="downloadBackup()">Download Backup</button>
+  <!-- Кнопки действий -->
+  <div style="margin-bottom: 20px;">
+    <button (click)="loadAllDevices()">Load All Devices</button>
+    <button (click)="downloadBackup()">Download Backup</button>
+  </div>
 
-<!-- Список всех устройств -->
-<ul>
-  <li *ngFor="let device of devices">
-    {{ device.name }} - Start: {{ device.startTime | date }} | End: {{ device.endTime | date }}
-    <button (click)="selectDevice(device.id)">Get Details</button>
-  </li>
-</ul>
+  <!-- Список устройств -->
+  <div *ngIf="devices.length > 0; else noDevices">
+    <table border="1" style="width: 100%; margin-top: 20px;">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let device of devices">
+        <td>{{ device.id }}</td>
+        <td>{{ device.name }}</td>
+        <td>{{ device.startTime | date }}</td>
+        <td>{{ device.endTime | date }}</td>
+        <td>
+          <button (click)="selectDevice(device.id)">Get Details</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 
-<!-- Детальная информация о выбранном устройстве -->
-<div *ngIf="selectedDeviceId && selectedDeviceData.length > 0; else noSelectedDevice" style="margin-top: 20px;">
-  <h3>Selected Device: {{ selectedDeviceId }}</h3>
-  <table border="1">
-    <tr>
-      <th>Name</th>
-      <th>Start Time</th>
-      <th>End Time</th>
-      <th>Version</th>
-    </tr>
-    <tr *ngFor="let activity of selectedDeviceData">
-      <td>{{ activity.name }}</td>
-      <td>{{ activity.startTime | date }}</td>
-      <td>{{ activity.endTime | date }}</td>
-      <td>{{ activity.version }}</td>
-    </tr>
-  </table>
+  <!-- Сообщение, если нет устройств -->
+  <ng-template #noDevices>
+    <p>No devices available. Click "Load All Devices" to fetch data.</p>
+  </ng-template>
+
+  <!-- Детальная информация о выбранном устройстве -->
+  <div *ngIf="selectedDeviceId && selectedDeviceData.length > 0; else noSelectedDevice" style="margin-top: 20px;">
+    <h3>Details for Device: {{ selectedDeviceId }}</h3>
+    <table border="1" style="width: 100%;">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let activity of selectedDeviceData">
+        <td>{{ activity.id }}</td>
+        <td>{{ activity.name }}</td>
+        <td>{{ activity.startTime | date }}</td>
+        <td>{{ activity.endTime | date }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Сообщение, если нет выбранного устройства -->
+  <ng-template #noSelectedDevice>
+    <p>Select a device to view its details.</p>
+  </ng-template>
 </div>
-
-<ng-template #noSelectedDevice>
-  <p>No device selected.</p>
-</ng-template>
