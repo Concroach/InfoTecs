@@ -1,3 +1,4 @@
+using API.Hubs;
 using API.Logging;
 using API.Repositories;
 using API.Services;
@@ -26,15 +27,16 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin", builder =>
     {
-        builder.WithOrigins("http://localhost:5000") // Адрес frontend'а
+        builder.WithOrigins("http://localhost:5000")
             .AllowAnyHeader()
             .AllowAnyMethod();
     });
 });
-
+builder.Services.AddSignalR();
 var app = builder.Build();
-
+app.MapHub<DeviceHub>("/devicehub");
 app.UseCors("AllowSpecificOrigin");
+
 if (app.Environment.IsDevelopment())
 {
     if (app.Environment.IsDevelopment())

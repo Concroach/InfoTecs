@@ -1,8 +1,6 @@
 ﻿<div>
   <h2>Devices</h2>
-  <button (click)="loadAllDevices()">Load All Devices</button>
   <button (click)="downloadBackup()">Download Backup</button>
-
   <div *ngIf="devices.length > 0; else noDevices">
     <table border="1" style="width: 100%; margin-top: 20px;">
       <thead>
@@ -27,11 +25,9 @@
       </tbody>
     </table>
   </div>
-
   <ng-template #noDevices>
-    <p>No devices available. Click "Load All Devices" to fetch data.</p>
+    <p>No devices available. Data will be loaded automatically.</p>
   </ng-template>
-
   <div *ngIf="selectedDeviceId && selectedDeviceData.length > 0; else noSelectedDevice" style="margin-top: 20px;">
     <h3>Selected Device: {{ selectedDeviceId }}</h3>
     <table border="1" style="width: 100%;">
@@ -53,7 +49,6 @@
       </tbody>
     </table>
   </div>
-
   <ng-template #noSelectedDevice>
     <p>Select a device to view its details.</p>
   </ng-template>

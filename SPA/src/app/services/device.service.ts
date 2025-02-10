@@ -9,7 +9,7 @@ import { DeviceActivity } from './device-activity.model';
 export class DeviceService {
   constructor(private http: HttpClient) {}
 
-  private apiUrl = 'http://localhost:8080/api/device'; // Используйте environment.apiUrl
+  private apiUrl = 'http://localhost:44372/api/device';
 
   getAllActivities(): Observable<DeviceActivity[]> {
     return this.http.get<DeviceActivity[]>(`${this.apiUrl}/all`);

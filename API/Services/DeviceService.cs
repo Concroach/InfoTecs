@@ -1,5 +1,7 @@
-﻿using API.Models;
+﻿using API.Hubs;
+using API.Models;
 using API.Repositories;
+using Microsoft.AspNetCore.SignalR;
 
 namespace API.Services;
 
@@ -9,15 +11,18 @@ using System.Collections.Generic;
 public class DeviceService : IDeviceService
 {
     private readonly IDeviceRepository _repository;
+    private readonly IHubContext<DeviceHub> _hubContext;
 
-    public DeviceService(IDeviceRepository repository)
+    public DeviceService(IDeviceRepository repository, IHubContext<DeviceHub> hubContext)
     {
         _repository = repository;
+        _hubContext = hubContext;
     }
 
     public void SubmitActivity(DeviceActivity activity)
     {
         _repository.AddActivity(activity);
+        _hubContext.Clients.All.SendAsync("ReceiveActivityUpdate", activity).Wait();
     }
 
     public IEnumerable<DeviceActivity> GetAllActivities()

@@ -70,7 +70,7 @@ public class DeviceController : ControllerBase
         catch (Exception ex)
         {
             _logger.LogError($"Failed to create or send backup file: {ex.Message}");
-            return StatusCode(500, "Failed to create or send backup file.");
+            return StatusCode(500, "Failed to create or send backup file");
         }
     }
 }
