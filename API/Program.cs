@@ -27,14 +27,15 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin", builder =>
     {
-        builder.WithOrigins("http://localhost:5000")
+        builder.WithOrigins("http://localhost:5000") // Адрес frontend'а
             .AllowAnyHeader()
-            .AllowAnyMethod();
+            .AllowAnyMethod()
+            .AllowCredentials();
     });
 });
 builder.Services.AddSignalR();
 var app = builder.Build();
-app.MapHub<DeviceHub>("/devicehub");
+app.MapHub<DeviceHub>("/device/devicehub");
 app.UseCors("AllowSpecificOrigin");
 
 if (app.Environment.IsDevelopment())

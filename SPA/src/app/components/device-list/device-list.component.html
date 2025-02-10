@@ -1,32 +1,38 @@
-﻿<div>
+﻿<div style="margin: 20px;">
   <h2>Devices</h2>
 
   <!-- Кнопки действий -->
-  <div style="margin-bottom: 20px;">
-    <button (click)="loadAllDevices()">Load All Devices</button>
-    <button (click)="downloadBackup()">Download Backup</button>
+  <div style="margin-bottom: 20px; display: flex; gap: 10px;">
+    <button (click)="loadAllDevices()" style="padding: 10px; background-color: #28a745; color: white; border: none; cursor: pointer;">
+      Load All Devices
+    </button>
+    <button (click)="downloadBackup()" style="padding: 10px; background-color: #007bff; color: white; border: none; cursor: pointer;">
+      Download Backup
+    </button>
   </div>
 
   <!-- Список устройств -->
   <div *ngIf="devices.length > 0; else noDevices">
-    <table border="1" style="width: 100%; margin-top: 20px;">
-      <thead>
+    <table border="1" style="width: 100%; margin-top: 20px; border-collapse: collapse;">
+      <thead style="background-color: #f8f9fa;">
       <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Start Time</th>
-        <th>End Time</th>
-        <th>Actions</th>
+        <th style="padding: 10px; text-align: left;">ID</th>
+        <th style="padding: 10px; text-align: left;">Name</th>
+        <th style="padding: 10px; text-align: left;">Start Time</th>
+        <th style="padding: 10px; text-align: left;">End Time</th>
+        <th style="padding: 10px; text-align: center;">Actions</th>
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let device of devices">
-        <td>{{ device.id }}</td>
-        <td>{{ device.name }}</td>
-        <td>{{ device.startTime | date }}</td>
-        <td>{{ device.endTime | date }}</td>
-        <td>
-          <button (click)="selectDevice(device.id)">Get Details</button>
+      <tr *ngFor="let device of devices" style="border-bottom: 1px solid #dee2e6;">
+        <td style="padding: 10px;">{{ device.id }}</td>
+        <td style="padding: 10px;">{{ device.name }}</td>
+        <td style="padding: 10px;">{{ device.startTime | date }}</td>
+        <td style="padding: 10px;">{{ device.endTime | date }}</td>
+        <td style="padding: 10px; text-align: center;">
+          <button (click)="selectDevice(device.id)" style="padding: 5px 10px; background-color: #ffc107; color: white; border: none; cursor: pointer;">
+            Get Details
+          </button>
         </td>
       </tr>
       </tbody>
@@ -35,27 +41,29 @@
 
   <!-- Сообщение, если нет устройств -->
   <ng-template #noDevices>
-    <p>No devices available. Click "Load All Devices" to fetch data.</p>
+    <p style="margin-top: 20px; font-style: italic; color: gray;">
+      No devices available. Click "Load All Devices" to fetch data.
+    </p>
   </ng-template>
 
   <!-- Детальная информация о выбранном устройстве -->
   <div *ngIf="selectedDeviceId && selectedDeviceData.length > 0; else noSelectedDevice" style="margin-top: 20px;">
-    <h3>Details for Device: {{ selectedDeviceId }}</h3>
-    <table border="1" style="width: 100%;">
-      <thead>
+    <h3 style="color: #007bff;">Details for Device: {{ selectedDeviceId }}</h3>
+    <table border="1" style="width: 100%; border-collapse: collapse;">
+      <thead style="background-color: #f8f9fa;">
       <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Start Time</th>
-        <th>End Time</th>
+        <th style="padding: 10px; text-align: left;">ID</th>
+        <th style="padding: 10px; text-align: left;">Name</th>
+        <th style="padding: 10px; text-align: left;">Start Time</th>
+        <th style="padding: 10px; text-align: left;">End Time</th>
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let activity of selectedDeviceData">
-        <td>{{ activity.id }}</td>
-        <td>{{ activity.name }}</td>
-        <td>{{ activity.startTime | date }}</td>
-        <td>{{ activity.endTime | date }}</td>
+      <tr *ngFor="let activity of selectedDeviceData" style="border-bottom: 1px solid #dee2e6;">
+        <td style="padding: 10px;">{{ activity.id }}</td>
+        <td style="padding: 10px;">{{ activity.name }}</td>
+        <td style="padding: 10px;">{{ activity.startTime | date }}</td>
+        <td style="padding: 10px;">{{ activity.endTime | date }}</td>
       </tr>
       </tbody>
     </table>
@@ -63,6 +71,8 @@
 
   <!-- Сообщение, если нет выбранного устройства -->
   <ng-template #noSelectedDevice>
-    <p>Select a device to view its details.</p>
+    <p style="margin-top: 20px; font-style: italic; color: gray;">
+      Select a device to view its details.
+    </p>
   </ng-template>
 </div>

@@ -12,7 +12,7 @@ export class SignalRService {
   // Инициализация соединения с SignalR
   startConnection(): void {
     this.hubConnection = new signalR.HubConnectionBuilder()
-      .withUrl('http://api:44372/api/devicehub') // Адрес SignalR Hub внутри Docker-сети
+      .withUrl('http://api:8080/api/device/devicehub') // Адрес SignalR Hub внутри Docker-сети
       .build();
 
     this.hubConnection
@@ -21,7 +21,7 @@ export class SignalRService {
       .catch((err) => console.error('SignalR connection error:', err));
 
     // Подписываемся на события от сервера
-    this.hubConnection.on('ReceiveActivityUpdate', (activity: any) => {
+    this.hubConnection.on('ReceiveActivityUpdate', (activity: DeviceActivity) => {
       console.log('Received activity update:', activity);
       if (this['notifyActivityUpdate']) {
         this['notifyActivityUpdate'](activity); // Вызываем метод для обработки обновления
