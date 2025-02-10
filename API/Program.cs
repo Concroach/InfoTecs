@@ -35,7 +35,7 @@ builder.Services.AddCors(options =>
 });
 builder.Services.AddSignalR();
 var app = builder.Build();
-app.MapHub<DeviceHub>("/device/devicehub");
+app.MapHub<DeviceHub>("/devicehub");
 app.UseCors("AllowSpecificOrigin");
 
 if (app.Environment.IsDevelopment())
