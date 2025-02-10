@@ -1,6 +1,6 @@
 ﻿import { Injectable } from '@angular/core';
 import * as signalR from '@microsoft/signalr';
-
+import { DeviceActivity } from './device-activity.model'
 @Injectable({
   providedIn: 'root'
 })
@@ -18,19 +18,19 @@ export class SignalRService {
     this.hubConnection
       .start()
       .then(() => console.log('SignalR connected'))
-      .catch((err: Error) => console.error('SignalR connection error:', err));
+      .catch((err) => console.error('SignalR connection error:', err));
 
     // Подписываемся на события от сервера
     this.hubConnection.on('ReceiveActivityUpdate', (activity: any) => {
       console.log('Received activity update:', activity);
-      this.notifyActivityUpdate(activity); // Вызываем метод для обработки обновления
+      if (this['notifyActivityUpdate']) {
+        this['notifyActivityUpdate'](activity); // Вызываем метод для обработки обновления
+      }
     });
   }
 
   // Метод для уведомления компонентов об обновлении
-  notifyActivityUpdate(activity: any): void {
-    // Реализуйте логику уведомления (например, через Subject или EventEmitter)
-  }
+  notifyActivityUpdate: ((activity: DeviceActivity) => void) | undefined;
 
   // Закрытие соединения
   stopConnection(): void {

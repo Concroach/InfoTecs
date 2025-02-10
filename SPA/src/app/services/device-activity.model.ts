@@ -1,7 +1,7 @@
 ﻿export interface DeviceActivity {
   id: string;
   name: string;
-  startTime: string;
-  endTime: string;
+  startTime: Date;
+  endTime: Date;
   version: string;
 }

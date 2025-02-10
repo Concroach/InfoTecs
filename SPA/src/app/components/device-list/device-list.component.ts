@@ -10,6 +10,8 @@ import { SignalRService } from '../../services/signalr.service';
 })
 export class DeviceListComponent implements OnInit, OnDestroy {
   devices: DeviceActivity[] = [];
+  selectedDeviceId: string | null = null;
+  selectedDeviceData: DeviceActivity[] = [];
 
   constructor(
     private deviceService: DeviceService,
@@ -42,6 +44,39 @@ export class DeviceListComponent implements OnInit, OnDestroy {
       },
       (error) => {
         console.error('Failed to load all devices:', error);
+      }
+    );
+  }
+
+  // Метод для загрузки резервной копии
+  downloadBackup(): void {
+    this.deviceService.downloadBackup().subscribe(
+      (blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'backup.json';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(url);
+      },
+      (error) => {
+        console.error('Failed to download backup:', error);
+      }
+    );
+  }
+
+  // Метод для выбора устройства
+  selectDevice(deviceId: string): void {
+    this.selectedDeviceId = deviceId;
+
+    this.deviceService.getDeviceById(deviceId).subscribe(
+      (data) => {
+        this.selectedDeviceData = data;
+      },
+      (error) => {
+        console.error(`Failed to load device with ID ${deviceId}:`, error);
       }
     );
   }
