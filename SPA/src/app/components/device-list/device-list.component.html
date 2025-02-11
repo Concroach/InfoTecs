@@ -1,14 +1,20 @@
 ﻿<div style="margin: 20px;">
   <h2>Devices</h2>
 
-  <!-- Кнопки действий -->
+  <!-- Кнопка для загрузки резервной копии -->
   <div style="margin-bottom: 20px; display: flex; gap: 10px;">
-    <button (click)="loadAllDevices()" style="padding: 10px; background-color: #28a745; color: white; border: none; cursor: pointer;">
-      Load All Devices
-    </button>
     <button (click)="downloadBackup()" style="padding: 10px; background-color: #007bff; color: white; border: none; cursor: pointer;">
       Download Backup
     </button>
+
+    <!-- Форма для удаления старых записей -->
+    <div>
+      <label style="margin-right: 5px;">Delete records before:</label>
+      <input type="date" [(ngModel)]="cleanupThreshold" name="cleanupThreshold" required />
+      <button (click)="cleanupOldRecords()" style="padding: 10px; background-color: #dc3545; color: white; border: none; cursor: pointer;">
+        Delete Old Records
+      </button>
+    </div>
   </div>
 
   <!-- Список устройств -->
@@ -42,7 +48,7 @@
   <!-- Сообщение, если нет устройств -->
   <ng-template #noDevices>
     <p style="margin-top: 20px; font-style: italic; color: gray;">
-      No devices available. Click "Load All Devices" to fetch data.
+      No devices available.
     </p>
   </ng-template>
 

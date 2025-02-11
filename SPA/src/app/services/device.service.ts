@@ -7,7 +7,8 @@ import { DeviceActivity } from './device-activity.model';
   providedIn: 'root'
 })
 export class DeviceService {
-  private apiUrl = 'http://localhost:8080/api/device';
+  private apiUrl = 'http://localhost:8080/api/device'; // Базовый URL
+
   constructor(private http: HttpClient) {}
 
   getAllActivities(): Observable<DeviceActivity[]> {
@@ -20,5 +21,10 @@ export class DeviceService {
 
   downloadBackup(): Observable<Blob> {
     return this.http.get(`${this.apiUrl}/backup`, { responseType: 'blob' });
+  }
+
+  cleanupOldRecords(threshold: Date): Observable<void> {
+    const params = { threshold: threshold.toISOString() };
+    return this.http.delete<void>(`${this.apiUrl}/cleanup`, { params });
   }
 }

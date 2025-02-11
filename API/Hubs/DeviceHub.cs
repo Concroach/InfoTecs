@@ -8,4 +8,9 @@ public class DeviceHub : Hub
     {
         await Clients.All.SendAsync("ReceiveActivityUpdate", activity);
     }
+
+    public async Task NotifyCleanup()
+    {
+        await Clients.All.SendAsync("ReceiveCleanupNotification");
+    }
 }

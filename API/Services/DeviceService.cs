@@ -38,5 +38,6 @@ public class DeviceService : IDeviceService
     public void CleanupOldRecords(DateTime threshold)
     {
         _repository.RemoveOldRecords(threshold);
+        _hubContext.Clients.All.SendAsync("ReceiveCleanupNotification").Wait();
     }
 }
