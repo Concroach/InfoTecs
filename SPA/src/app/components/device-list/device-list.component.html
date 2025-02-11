@@ -2,15 +2,15 @@
   <h2 style="margin-bottom: 20px;">Devices</h2>
 
   <!-- Кнопка для загрузки резервной копии -->
-  <div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 10px;">
-    <button (click)="downloadBackup()" class="">
+  <div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 20px;">
+    <button (click)="downloadBackup()" class="btn btn-primary btn-sm">
       Download Backup
     </button>
     <!-- Форма для удаления старых записей -->
     <div style="display: flex; align-items: center; gap: 5px;">
       <label style="font-size: 16px; font-weight: bold;">Delete records before:</label>
       <input type="date" [(ngModel)]="cleanupThreshold" name="cleanupThreshold" required />
-      <button (click)="cleanupOldRecords()" class="btn btn-danger">
+      <button (click)="cleanupOldRecords()" class="btn btn-danger btn-sm">
         Delete Old Records
       </button>
     </div>
