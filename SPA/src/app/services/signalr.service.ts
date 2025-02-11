@@ -1,6 +1,7 @@
 ﻿import { Injectable } from '@angular/core';
 import * as signalR from '@microsoft/signalr';
 import { DeviceActivity } from './device-activity.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -8,11 +9,13 @@ import { DeviceActivity } from './device-activity.model';
 export class SignalRService {
   private hubConnection: signalR.HubConnection | null = null;
 
+  private url = environment.apiUrl + `/devicehub`
+
   constructor() {}
 
   startConnection(): void {
     this.hubConnection = new signalR.HubConnectionBuilder()
-      .withUrl(`http://localhost:8080/devicehub`)
+      .withUrl(this.url)
       .build();
 
     this.hubConnection
