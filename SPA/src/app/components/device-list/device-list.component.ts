@@ -12,7 +12,7 @@ export class DeviceListComponent implements OnInit, OnDestroy {
   devices: DeviceActivity[] = [];
   selectedDeviceId: string | null = null;
   selectedDeviceData: DeviceActivity[] = [];
-  cleanupThreshold: string = ''; // Пороговая дата для удаления записей
+  cleanupThreshold: string = ''; // Тип должен быть string
 
   constructor(
     private deviceService: DeviceService,
@@ -20,29 +20,23 @@ export class DeviceListComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    // Загрузка начальных данных
     this.loadAllDevices();
-
-    // Инициализация SignalR
     this.signalRService.startConnection();
 
     // Подписываемся на обновления от SignalR
     this.signalRService['notifyActivityUpdate'] = (activity: DeviceActivity) => {
-      // Если новая запись — добавляем её в список
       this.devices.push(activity);
       console.log('Activity added dynamically:', activity);
     };
 
-    // Подписываемся на события удаления записей
+    // Подписываемся на уведомления о чистке записей
     this.signalRService['notifyCleanup'] = () => {
-      // При получении уведомления о чистке — перезагружаем данные
       this.loadAllDevices();
       console.log('Old records cleaned up');
     };
   }
 
   ngOnDestroy(): void {
-    // Закрываем соединение при уничтожении компонента
     this.signalRService.stopConnection();
   }
 
@@ -93,10 +87,9 @@ export class DeviceListComponent implements OnInit, OnDestroy {
       return;
     }
 
-    // Преобразуем строку в объект Date
+    // Преобразуем строку в объект Date перед отправкой на backend
     const thresholdDate = new Date(this.cleanupThreshold);
 
-    // Отправляем запрос на удаление старых записей
     this.deviceService.cleanupOldRecords(thresholdDate).subscribe(
       () => {
         console.log('Old records deleted successfully');

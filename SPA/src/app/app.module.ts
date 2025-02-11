@@ -1,6 +1,7 @@
 ﻿import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http'; // Для HTTP-запросов
+import { FormsModule } from '@angular/forms'; // Для ngModel
 
 import { AppComponent } from './app.component';
 import { DeviceListComponent } from './components/device-list/device-list.component';
@@ -12,7 +13,8 @@ import { DeviceListComponent } from './components/device-list/device-list.compon
   ],
   imports: [
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule // Добавьте этот модуль
   ],
   providers: [],
   bootstrap: [AppComponent]
