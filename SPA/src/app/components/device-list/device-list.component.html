@@ -1,42 +1,41 @@
-﻿<div style="margin: 20px;">
-  <h2>Devices</h2>
+﻿<div style="margin: 20px; text-align: center;">
+  <h2 style="margin-bottom: 20px;">Devices</h2>
 
   <!-- Кнопка для загрузки резервной копии -->
-  <div style="margin-bottom: 20px; display: flex; gap: 10px;">
-    <button (click)="downloadBackup()" style="padding: 10px; background-color: #007bff; color: white; border: none; cursor: pointer;">
+  <div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 20px;">
+    <button (click)="downloadBackup()" class="btn btn-primary">
       Download Backup
     </button>
-
     <!-- Форма для удаления старых записей -->
-    <div>
-      <label style="margin-right: 5px;">Delete records before:</label>
+    <div style="display: flex; align-items: center; gap: 5px;">
+      <label style="font-size: 16px; font-weight: bold;">Delete records before:</label>
       <input type="date" [(ngModel)]="cleanupThreshold" name="cleanupThreshold" required />
-      <button (click)="cleanupOldRecords()" style="padding: 10px; background-color: #dc3545; color: white; border: none; cursor: pointer;">
+      <button (click)="cleanupOldRecords()" class="btn btn-danger">
         Delete Old Records
       </button>
     </div>
   </div>
 
   <!-- Список устройств -->
-  <div *ngIf="devices.length > 0; else noDevices">
-    <table border="1" style="width: 100%; margin-top: 20px; border-collapse: collapse;">
+  <div *ngIf="devices.length > 0; else noDevices" style="text-align: left;">
+    <table border="1" style="width: 100%; margin-top: 20px; border-collapse: collapse; margin-left: auto; margin-right: auto;">
       <thead style="background-color: #f8f9fa;">
       <tr>
-        <th style="padding: 10px; text-align: left;">ID</th>
-        <th style="padding: 10px; text-align: left;">Name</th>
-        <th style="padding: 10px; text-align: left;">Start Time</th>
-        <th style="padding: 10px; text-align: left;">End Time</th>
+        <th style="padding: 10px; text-align: center;">ID</th>
+        <th style="padding: 10px; text-align: center;">Name</th>
+        <th style="padding: 10px; text-align: center;">Start Time</th>
+        <th style="padding: 10px; text-align: center;">End Time</th>
         <th style="padding: 10px; text-align: center;">Actions</th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let device of devices" style="border-bottom: 1px solid #dee2e6;">
-        <td style="padding: 10px;">{{ device.id }}</td>
-        <td style="padding: 10px;">{{ device.name }}</td>
-        <td style="padding: 10px;">{{ device.startTime | date }}</td>
-        <td style="padding: 10px;">{{ device.endTime | date }}</td>
+        <td style="padding: 10px; text-align: center;">{{ device.id }}</td>
+        <td style="padding: 10px; text-align: center;">{{ device.name }}</td>
+        <td style="padding: 10px; text-align: center;">{{ device.startTime | date }}</td>
+        <td style="padding: 10px; text-align: center;">{{ device.endTime | date }}</td>
         <td style="padding: 10px; text-align: center;">
-          <button (click)="selectDevice(device.id)" style="padding: 5px 10px; background-color: #ffc107; color: white; border: none; cursor: pointer;">
+          <button (click)="selectDevice(device.id)" class="btn btn-success">
             Get Details
           </button>
         </td>
@@ -47,29 +46,29 @@
 
   <!-- Сообщение, если нет устройств -->
   <ng-template #noDevices>
-    <p style="margin-top: 20px; font-style: italic; color: gray;">
+    <p style="margin-top: 20px; font-style: italic; color: gray; text-align: center;">
       No devices available.
     </p>
   </ng-template>
 
   <!-- Детальная информация о выбранном устройстве -->
-  <div *ngIf="selectedDeviceId && selectedDeviceData.length > 0; else noSelectedDevice" style="margin-top: 20px;">
-    <h3 style="color: #007bff;">Details for Device: {{ selectedDeviceId }}</h3>
-    <table border="1" style="width: 100%; border-collapse: collapse;">
+  <div *ngIf="selectedDeviceId && selectedDeviceData.length > 0; else noSelectedDevice" style="margin-top: 20px; text-align: center;">
+    <h3 style="color: black; font-weight: bold;">Details for Device: {{ selectedDeviceId }}</h3>
+    <table border="1" style="width: 80%; margin-left: auto; margin-right: auto; border-collapse: collapse; margin-top: 10px;">
       <thead style="background-color: #f8f9fa;">
       <tr>
-        <th style="padding: 10px; text-align: left;">ID</th>
-        <th style="padding: 10px; text-align: left;">Name</th>
-        <th style="padding: 10px; text-align: left;">Start Time</th>
-        <th style="padding: 10px; text-align: left;">End Time</th>
+        <th style="padding: 10px; text-align: center;">ID</th>
+        <th style="padding: 10px; text-align: center;">Name</th>
+        <th style="padding: 10px; text-align: center;">Start Time</th>
+        <th style="padding: 10px; text-align: center;">End Time</th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let activity of selectedDeviceData" style="border-bottom: 1px solid #dee2e6;">
-        <td style="padding: 10px;">{{ activity.id }}</td>
-        <td style="padding: 10px;">{{ activity.name }}</td>
-        <td style="padding: 10px;">{{ activity.startTime | date }}</td>
-        <td style="padding: 10px;">{{ activity.endTime | date }}</td>
+        <td style="padding: 10px; text-align: center;">{{ activity.id }}</td>
+        <td style="padding: 10px; text-align: center;">{{ activity.name }}</td>
+        <td style="padding: 10px; text-align: center;">{{ activity.startTime | date }}</td>
+        <td style="padding: 10px; text-align: center;">{{ activity.endTime | date }}</td>
       </tr>
       </tbody>
     </table>
@@ -77,7 +76,7 @@
 
   <!-- Сообщение, если нет выбранного устройства -->
   <ng-template #noSelectedDevice>
-    <p style="margin-top: 20px; font-style: italic; color: gray;">
+    <p style="margin-top: 20px; font-style: italic; color: gray; text-align: center;">
       Select a device to view its details.
     </p>
   </ng-template>
