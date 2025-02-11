@@ -50,7 +50,7 @@ public class DeviceController : ControllerBase
     public IActionResult CleanupOldRecords([FromQuery] DateTime threshold)
     {
         _service.CleanupOldRecords(threshold);
-        _hubContext.Clients.All.SendAsync("ReceiveCleanupNotification").Wait();
+        
         return NoContent();
     }
     
