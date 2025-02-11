@@ -12,15 +12,14 @@ export class SignalRService {
 
   startConnection(): void {
     this.hubConnection = new signalR.HubConnectionBuilder()
-      .withUrl(`http://localhost:8080/devicehub`) // Внешний URL
+      .withUrl(`http://localhost:8080/devicehub`)
       .build();
 
     this.hubConnection
       .start()
       .then(() => console.log('SignalR connected'))
-      .catch((err) => console.error('SignalR connection error:', err));
+      .catch((err: Error) => console.error('SignalR connection error:', err));
 
-    // Подписываемся на событие создания новой записи
     this.hubConnection.on('ReceiveActivityUpdate', (activity: DeviceActivity) => {
       console.log('Received activity update:', activity);
       if (this['notifyActivityUpdate']) {
@@ -28,7 +27,6 @@ export class SignalRService {
       }
     });
 
-    // Подписываемся на событие чистки записей
     this.hubConnection.on('ReceiveCleanupNotification', () => {
       console.log('Received cleanup notification');
       if (this['notifyCleanup']) {

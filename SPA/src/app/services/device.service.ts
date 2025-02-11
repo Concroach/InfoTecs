@@ -7,7 +7,7 @@ import { DeviceActivity } from './device-activity.model';
   providedIn: 'root'
 })
 export class DeviceService {
-  private apiUrl = 'http://localhost:8080/api/device'; // Базовый URL
+  private apiUrl = 'http://localhost:8080/api/device';
 
   constructor(private http: HttpClient) {}
 

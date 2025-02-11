@@ -12,7 +12,7 @@ export class DeviceListComponent implements OnInit, OnDestroy {
   devices: DeviceActivity[] = [];
   selectedDeviceId: string | null = null;
   selectedDeviceData: DeviceActivity[] = [];
-  cleanupThreshold: string = ''; // Тип должен быть string
+  cleanupThreshold: string = '';
 
   constructor(
     private deviceService: DeviceService,
@@ -23,13 +23,11 @@ export class DeviceListComponent implements OnInit, OnDestroy {
     this.loadAllDevices();
     this.signalRService.startConnection();
 
-    // Подписываемся на обновления от SignalR
     this.signalRService['notifyActivityUpdate'] = (activity: DeviceActivity) => {
       this.devices.push(activity);
       console.log('Activity added dynamically:', activity);
     };
 
-    // Подписываемся на уведомления о чистке записей
     this.signalRService['notifyCleanup'] = () => {
       this.loadAllDevices();
       console.log('Old records cleaned up');
@@ -87,13 +85,12 @@ export class DeviceListComponent implements OnInit, OnDestroy {
       return;
     }
 
-    // Преобразуем строку в объект Date перед отправкой на backend
     const thresholdDate = new Date(this.cleanupThreshold);
 
     this.deviceService.cleanupOldRecords(thresholdDate).subscribe(
       () => {
         console.log('Old records deleted successfully');
-        this.cleanupThreshold = ''; // Очищаем поле ввода
+        this.cleanupThreshold = '';
       },
       (error) => {
         console.error('Failed to delete old records:', error);

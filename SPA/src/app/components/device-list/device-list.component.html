@@ -1,12 +1,10 @@
 ﻿<div style="margin: 20px; text-align: center;">
   <h2 style="margin-bottom: 20px;">Devices</h2>
 
-  <!-- Кнопка для загрузки резервной копии -->
   <div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 20px;">
     <button (click)="downloadBackup()" class="btn btn-primary btn-sm">
       Download Backup
     </button>
-    <!-- Форма для удаления старых записей -->
     <div style="display: flex; align-items: center; gap: 5px;">
       <label style="font-size: 16px; font-weight: bold;">Delete records before:</label>
       <input type="date" [(ngModel)]="cleanupThreshold" name="cleanupThreshold" required />
@@ -16,7 +14,6 @@
     </div>
   </div>
 
-  <!-- Список устройств -->
   <div *ngIf="devices.length > 0; else noDevices" style="text-align: left;">
     <table border="1" style="width: 100%; margin-top: 20px; border-collapse: collapse; margin-left: auto; margin-right: auto;">
       <thead style="background-color: #f8f9fa;">
@@ -44,14 +41,12 @@
     </table>
   </div>
 
-  <!-- Сообщение, если нет устройств -->
   <ng-template #noDevices>
     <p style="margin-top: 20px; font-style: italic; color: gray; text-align: center;">
-      No devices available.
+      No devices available
     </p>
   </ng-template>
 
-  <!-- Детальная информация о выбранном устройстве -->
   <div *ngIf="selectedDeviceId && selectedDeviceData.length > 0; else noSelectedDevice" style="margin-top: 20px; text-align: center;">
     <h3 style="color: black; font-weight: bold;">Details for Device: {{ selectedDeviceId }}</h3>
     <table border="1" style="width: 80%; margin-left: auto; margin-right: auto; border-collapse: collapse; margin-top: 10px;">
@@ -74,10 +69,9 @@
     </table>
   </div>
 
-  <!-- Сообщение, если нет выбранного устройства -->
   <ng-template #noSelectedDevice>
     <p style="margin-top: 20px; font-style: italic; color: gray; text-align: center;">
-      Select a device to view its details.
+      Select a device to view its details
     </p>
   </ng-template>
 </div>
