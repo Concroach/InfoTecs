@@ -15,7 +15,7 @@ SPA придложение, предназначенное для получен
 
 ## Технологии
 
-- **Backend:** .NET 8
+- **Backend:** .NET 8, SignalR
 - **Frontend:** Angular 15 + LESS
 - **Формат данных:** JSON
 - **Контейнеризация:** Docker
